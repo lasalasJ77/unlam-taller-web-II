@@ -1,0 +1,17 @@
+<div class="jumbotron text-center">
+  <button class="btn btn-primary btn-lg mt-3" (click)="tirarDados()">Tirar dados</button>
+  <br>
+
+  <img class="img" [src]="dadoDerecho">
+  <img class="img" [src]="dadoIzquierdo">
+
+  @if(numero1 === numero2){
+  <h1><span class="badge bdage-success text-dark">¡GANASTE PA DESDE HTML!</span></h1>
+  }@else{
+  <h1><span class="badge bdage-success text-dark">¡PERDISTE PA DESDE HTML!</span></h1>
+  }
+
+  <h1><span class="badge bdage-success text-dark">{{resultado}}</span></h1>
+
+
+</div>
