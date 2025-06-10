@@ -2,7 +2,6 @@ import { envs } from "./config/envs";
 import { Server } from "./server/server";
 import { AppRoutes } from './routes/routes.routes';
 
-
 (
   async () => { main(); }
 
