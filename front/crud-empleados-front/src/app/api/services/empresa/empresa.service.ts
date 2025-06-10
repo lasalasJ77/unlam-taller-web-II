@@ -30,7 +30,6 @@ export class EmpresaService {
 
   http = inject(HttpClient)
 
-
   constructor() { }
 
   listEmpresas() {

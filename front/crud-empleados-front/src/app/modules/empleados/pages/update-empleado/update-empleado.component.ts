@@ -9,50 +9,36 @@ import { SelectModule } from 'primeng/select';
 import { Toast } from 'primeng/toast';
 import { EmpleadoService } from '../../../../api/services/empleado/empleado.service';
 import { EmpresaService } from '../../../../api/services/empresa/empresa.service';
+import { FormEmpleadoComponent } from "../../components/form-empleado/form-empleado.component";
+import { Empleado } from '../../interfaces/empleado.interface';
 
 @Component({
   selector: 'app-update-empleado',
-  imports: [ProgressSpinner, ButtonModule, RouterLink, ReactiveFormsModule, InputTextModule, SelectModule, Toast],
+  imports: [ProgressSpinner, ButtonModule, RouterLink, ReactiveFormsModule, InputTextModule, SelectModule, Toast, FormEmpleadoComponent],
   providers: [MessageService],
   templateUrl: './update-empleado.component.html',
   styleUrl: './update-empleado.component.css'
 })
 export class UpdateEmpleadoComponent {
 
-
   spinner = true;
 
-  private fb = inject(FormBuilder)
   messageService = inject(MessageService)
 
   empleadoService = inject(EmpleadoService)
-  empresaService = inject(EmpresaService)
-
-  form!: FormGroup;
-
-  empresas: any = []
 
   activatedRouter = inject(ActivatedRoute)
 
   id: number | null = null;
 
-  empleado: any;
+  empleado: Empleado | undefined;
 
   ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
     this.id = Number(this.activatedRouter.snapshot.paramMap.get('id'))
-    this.spinner = false;
-
-    this.form = this.fb.group({
-      nombre: ['', [Validators.required]],
-      empresa: ['', [Validators.required]]
-    })
-
-    this.listEmpresas()
     this.getEmpleado()
-
   }
 
   getEmpleado() {
@@ -60,28 +46,22 @@ export class UpdateEmpleadoComponent {
       {
         next: (data) => {
           this.empleado = data;
-          console.log(data);
-          this.form.patchValue({
-            nombre: this.empleado.nombre,
-            empresa: this.empleado?.empresa?.id
-          })
         },
         error: (err) => {
           console.log(err);
-          
         },
         complete: () => {
-
+          this.spinner = false;
         }
       }
     )
   }
 
-  listEmpresas() {
-    this.empresaService.listEmpresas().subscribe(
+  updateEmpleado(empleado: Empleado) {
+    this.empleadoService.updateEmpleado(empleado).subscribe(
       {
         next: (data) => {
-          this.empresas = data;
+          this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Empleado actualizado con exito' });
         },
         error: (err) => {
           console.log(err);
@@ -91,28 +71,6 @@ export class UpdateEmpleadoComponent {
         }
       }
     )
-  }
-
-  updateEmpleado() {
-    if (this.form.valid) {
-      this.empleadoService.updateEmpleado(this.id ,{ nombre: this.form.value.nombre, id_empresa: this.form.value.empresa }).subscribe(
-        {
-          next: (data) => {
-            this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Empleado actualizado con exito' });
-          },
-          error: (err) => {
-            console.log(err);
-          },
-          complete: () => {
-
-          }
-        }
-      )
-    } else {
-      this.messageService.add({ severity: 'success', summary: '????', detail: '¿Qué haces flaco?' });
-
-    }
-
   }
 
 

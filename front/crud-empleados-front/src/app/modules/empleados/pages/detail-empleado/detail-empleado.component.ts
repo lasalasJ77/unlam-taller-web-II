@@ -3,6 +3,7 @@ import { EmpleadoService } from '../../../../api/services/empleado/empleado.serv
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { Empleado } from '../../interfaces/empleado.interface';
 
 @Component({
   selector: 'app-detail-empleado',
@@ -19,7 +20,7 @@ export class DetailEmpleadoComponent implements OnInit,OnDestroy{
 
   id:number | null = null;
 
-  empleado:any;
+  empleado:Empleado | undefined;
 
   ngOnInit(): void {
     this.id = Number(this.activatedRouter.snapshot.paramMap.get('id'))
