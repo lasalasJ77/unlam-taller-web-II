@@ -1,3 +1,5 @@
+import { Empresa } from "../../empresas/interfaces/empresa.interface";
+
 export interface Empleado {
     id:         number;
     nombre:     string;
@@ -5,7 +7,3 @@ export interface Empleado {
     empresa?:    Empresa;
 }
 
-export interface Empresa {
-    id:     number;
-    nombre: string;
-}

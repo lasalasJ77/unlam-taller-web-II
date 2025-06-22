@@ -8,7 +8,11 @@ export class EmpleadoMapper {
             id: empleadoRest.id,
             nombre: empleadoRest.nombre,
             id_empresa: empleadoRest.id_empresa,
-            empresa : empleadoRest.empresa
+            empresa : {
+                id : empleadoRest.empresa?.id ?? 0,
+                nombre : empleadoRest.empresa?.nombre ?? "",
+                empleados : []
+            }
         };
     }
 

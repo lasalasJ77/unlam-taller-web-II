@@ -1,3 +1,5 @@
+import { EmpresaRest } from "../../empresa/interfaces/empresa.interface.rest";
+
 export interface EmpleadoRest {
     id:         number;
     nombre:     string;
@@ -5,7 +7,4 @@ export interface EmpleadoRest {
     empresa?:    EmpresaRest;
 }
 
-export interface EmpresaRest {
-    id:     number;
-    nombre: string;
-}
+
